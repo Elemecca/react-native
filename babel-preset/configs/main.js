@@ -32,11 +32,16 @@ const getPreset = (src, options) => {
     'transform-flow-strip-types',
     'transform-react-jsx',
     'transform-regenerator',
-    [
-      'transform-es2015-modules-commonjs',
-      {strict: false, allowTopLevelThis: true},
-    ]
   );
+
+  if (!options || options.modules !== false) {
+    plugins.push(
+      [
+        'transform-es2015-modules-commonjs',
+        {strict: false, allowTopLevelThis: true},
+      ]
+    );
+  }
 
   if (isNull || src.indexOf('async') !== -1 || src.indexOf('await') !== -1) {
     plugins.push('syntax-async-functions');
